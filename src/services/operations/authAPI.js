@@ -145,9 +145,12 @@ export function login(email, password, navigate) {
 
       //set the institute of student 
       const emailId = response?.data?.user?.email
+      console.log(emailId)
+      console.log(process.env.EMAIL)
        if(emailId!==process.env.EMAIL)
       {
         const data={_id:response?.data?.user?.institute?._id, name:response?.data?.user?.institute?.name}
+        console.log(data)
       dispatch(setInstitute(data))
       localStorage.setItem("institute", JSON.stringify(data))
 
