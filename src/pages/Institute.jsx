@@ -46,7 +46,7 @@ export default function Institute() {
     setValue("name","")
     setValue("description","")
   }
-
+ 
   const setInstValue = (inst)=>{
     // console.log(typeof(inst))
     const data={_id:inst._id, name:inst.name}

@@ -108,7 +108,10 @@ exports.login = async (req,res)=>{
 
 
         // check user is exist or not 
-        const user = await User.findOne({email});
+        const user = await User.findOne({email}).populate({
+            path: 'institute',
+            select: 'name _id'
+          });
 
         if(!user)
         {

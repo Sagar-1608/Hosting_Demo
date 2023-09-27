@@ -1,7 +1,8 @@
 
 import { toast } from "react-hot-toast"
 
-import { setLoading, setToken } from "../../slices/authSlice"
+import { setLoading, setToken,setInstitute } from "../../slices/authSlice"
+
 import { resetCart } from "../../slices/cartSlice"
 import { setUser } from "../../slices/profileSlice"
 import { apiConnector } from "../apiconnector"
@@ -131,7 +132,7 @@ export function login(email, password, navigate) {
         throw new Error(response.data.message)
       }
 
-
+      console.log(response)
       // when get successfull response 
       toast.success("Login Successful")
 
@@ -142,6 +143,17 @@ export function login(email, password, navigate) {
       const userImage = response.data?.user?.image
       dispatch(setUser({ ...response.data.user, image: userImage }))
 
+      //set the institute of student 
+      const emailId = response?.data?.user?.email
+       if(emailId!==process.env.EMAIL)
+      {
+        const data={_id:response?.data?.user?.institute?._id, name:response?.data?.user?.institute?.name}
+      dispatch(setInstitute(data))
+      localStorage.setItem("institute", JSON.stringify(data))
+
+
+      }
+      
       // set the localStorage in that set the reciveded token with convert into string fron the response
       localStorage.setItem("token", JSON.stringify(response.data.token))
       localStorage.setItem("user", JSON.stringify(response.data.user))
